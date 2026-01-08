@@ -1,0 +1,274 @@
+<!-- Gebruikte bronnen:
+- https://www.w3schools.com/howto/howto_css_switch.asp
+- https://www.w3schools.com/howto/howto_js_draggable.asp 
+
+- GitHub Copilot (Als hulpmiddel om de vereiste kennis en vaardigheden eigen te maken)
+Ik heb al enige kennis van HTML, CSS en beetje van JS wegens mijn vooropleiding
+
+- https://stackoverflow.com/questions/56111480/how-can-i-hide-a-div-until-a-button-is-clicked
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookies maken je misselijk!</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Cookies maken je misselijk!</h1>
+      <p>File</p>
+      <p>Edit</p>
+      <p>View</p>
+      <span id="clock"></span>
+    </header>
+    <div id="mydiv">
+      <div id="mydivheader">
+        <div class="mac-puntjes">
+          <span class="punt punt-green"></span>
+          <span class="punt punt-orange"></span>
+          <span class="punt punt-red"></span>
+        </div>
+        <h1>Welke cookies accepteer jij?</h1>
+        <p>
+          Irritant hé als je cookies wilt weigeren en de kleuren zijn
+          omgewisseld
+        </p>
+        <p>Weet je wel wat je nu eigenlijk allemaal accepteert?</p>
+      </div>
+      <div class="switches-container">
+        <div class="switches-row">
+          <div class="switch-item">
+            <h2>Advertising</h2>
+            <label class="switch">
+              <input type="checkbox" id="advertising-switch" checked />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="switch-item">
+            <h2>Analytics</h2>
+            <label class="switch">
+              <input type="checkbox" id="analytics-switch" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="switch-item">
+            <h2>Social Media</h2>
+            <label class="switch">
+              <input type="checkbox" id="social-switch" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="switch-item">
+            <h2>Tracking</h2>
+            <label class="switch">
+              <input type="checkbox" id="tracking-switch" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="cookie-buttons">
+          <button class="accept-selected-button" id="accept-selected">
+            Accept selected
+          </button>
+          <button class="accept-all-button" id="accept-all">Accept all</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tracking Popup Windows -->
+    <div id="popup1" class="tracking-popup" style="display: none">
+      <div class="tracking-header">
+        <div class="mac-puntjes">
+          <span class="punt punt-green"></span>
+          <span class="punt punt-orange"></span>
+          <span class="punt punt-red"></span>
+        </div>
+        <h2>WACHT! Vakantie Alert</h2>
+      </div>
+      <div class="tracking-content">
+        <p>
+          <strong>HEY JIJ!</strong> We zagen GISTEREN dat je naar Spanje
+          zocht...
+        </p>
+        <p><strong>LAATSTE KANS!</strong> BOEK NU OF VERLIES 5% KORTING!</p>
+        <p style="font-size: 12px; margin-top: 10px">
+          Deze aanbieding verloopt over 3 minuten!!!
+        </p>
+      </div>
+    </div>
+
+    <div id="popup2" class="tracking-popup" style="display: none">
+      <div class="tracking-header">
+        <div class="mac-puntjes">
+          <span class="punt punt-green"></span>
+          <span class="punt punt-orange"></span>
+          <span class="punt punt-red"></span>
+        </div>
+        <h2>URGENT: Jouw locatie</h2>
+      </div>
+      <div class="tracking-content">
+        <p>We zien dat je nu in <strong>Amsterdam</strong> bent</p>
+        <p><strong>PRECIES OP DIT MOMENT</strong></p>
+        <p style="font-size: 14px">
+          Restaurants bij jou in de buurt willen je zien!
+        </p>
+      </div>
+    </div>
+
+    <div id="popup3" class="tracking-popup" style="display: none">
+      <div class="tracking-header">
+        <div class="mac-puntjes">
+          <span class="punt punt-green"></span>
+          <span class="punt punt-orange"></span>
+          <span class="punt punt-red"></span>
+        </div>
+        <h2>BELANGRIJK! Je winkelwagen</h2>
+      </div>
+      <div class="tracking-content">
+        <p>Die sneakers die je 3 dagen geleden bekeek...</p>
+        <p><strong>NOG MAAR 1 OP VOORRAAD!</strong></p>
+        <p style="color: #941a1d; font-weight: 900">
+          Iemand anders bekijkt ze NU!
+        </p>
+      </div>
+    </div>
+
+    <div id="popup4" class="tracking-popup" style="display: none">
+      <div class="tracking-header">
+        <div class="mac-puntjes">
+          <span class="punt punt-green"></span>
+          <span class="punt punt-orange"></span>
+          <span class="punt punt-red"></span>
+        </div>
+        <h2>LET OP! Sociale druk</h2>
+      </div>
+      <div class="tracking-content">
+        <p>Lisa, Mark en Emma kochten dit al</p>
+        <p><strong>Blijf jij achter?</strong></p>
+        <p style="font-size: 13px">
+          Iedereen in jouw netwerk heeft dit al gezien...
+        </p>
+      </div>
+    </div>
+
+    <div id="popup5" class="tracking-popup" style="display: none">
+      <div class="tracking-header">
+        <div class="mac-puntjes">
+          <span class="punt punt-green"></span>
+          <span class="punt punt-orange"></span>
+          <span class="punt punt-red"></span>
+        </div>
+        <h2>BELANGRIJK: Je gezondheid</h2>
+      </div>
+      <div class="tracking-content">
+        <p>We zagen dat je VIJF KEER naar "hoofdpijn" zocht...</p>
+        <p><strong>Bezorgd over je gezondheid?</strong></p>
+        <p style="font-size: 13px">Onze pillen kunnen helpen! Nu -20%</p>
+      </div>
+    </div>
+
+    <div id="popup6" class="tracking-popup" style="display: none">
+      <div class="tracking-header">
+        <div class="mac-puntjes">
+          <span class="punt punt-green"></span>
+          <span class="punt punt-orange"></span>
+          <span class="punt punt-red"></span>
+        </div>
+        <h2>We kennen je patronen</h2>
+      </div>
+      <div class="tracking-content">
+        <p>Je bezocht deze site al 47 keer</p>
+        <p>Altijd via je <strong>iPhone 14</strong> rond 23:14 uur</p>
+        <p style="font-size: 12px; margin-top: 8px">
+          We weten wanneer je alleen bent...
+        </p>
+      </div>
+    </div>
+
+    <div id="popup7" class="tracking-popup" style="display: none">
+      <div class="tracking-header">
+        <div class="mac-puntjes">
+          <span class="punt punt-green"></span>
+          <span class="punt punt-orange"></span>
+          <span class="punt punt-red"></span>
+        </div>
+        <h2>KANS! Carriere switch</h2>
+      </div>
+      <div class="tracking-content">
+        <p>Ontevreden met je baan? We zagen je zoeken...</p>
+        <p><strong>€3500/maand EXTRA</strong> mogelijk!</p>
+        <p style="font-size: 13px">Je collega's hoeven het niet te weten</p>
+      </div>
+    </div>
+
+    <div id="popup8" class="tracking-popup" style="display: none">
+      <div class="tracking-header">
+        <div class="mac-puntjes">
+          <span class="punt punt-green"></span>
+          <span class="punt punt-orange"></span>
+          <span class="punt punt-red"></span>
+        </div>
+        <h2>Je browsing geschiedenis</h2>
+      </div>
+      <div class="tracking-content">
+        <p>Alles wat je de afgelopen maand deed online...</p>
+        <p><strong>Wij weten het. En 847 andere bedrijven ook.</strong></p>
+        <p style="font-size: 12px; margin-top: 8px">
+          Inclusief die dingen die je liever geheim houdt
+        </p>
+      </div>
+    </div>
+
+    <!-- Final message window -->
+    <div id="final-message" class="info-window" style="display: none">
+      <div class="info-window-header">
+        <h1>KLAAR ERMEE!</h1>
+      </div>
+      <div class="content-container">
+        <p
+          style="
+            font-size: 24px;
+            font-weight: 900;
+            text-align: center;
+            margin: 20px 0;
+          "
+        >
+          STOP MET JE COOKIES<br />ZO SNEL TE DELEN
+        </p>
+        <p style="text-align: center; margin-top: 30px; font-size: 18px">
+          Dit gebeurt elke keer dat je op<br /><strong
+            >"Accepteer alle cookies"</strong
+          >
+          klikt.
+        </p>
+        <p style="text-align: center; margin-top: 20px; font-size: 16px">
+          Irritant hè?
+        </p>
+      </div>
+    </div>
+
+    <!-- <div id="opiniediv">
+      <div id="opiniedivheader">
+        <div class="mac-puntjes">
+          <span class="punt punt-green"></span>
+          <span class="punt punt-orange"></span>
+          <span class="punt punt-red"></span>
+        </div>
+        <h1>Opinie</h1>
+      </div>
+      <div class="content-container">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </p>
+      </div>
+    </div> -->
+  </body>
+  <script src="./scripts/script.js"></script>
+</html>
